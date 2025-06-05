@@ -1,0 +1,27 @@
+File: D:\code_doc_generator\src\doc_generator.py
+Type: function
+Name: generate_docstring_for_element
+------------------------------
+
+"""
+def generate_docstring_for_element(client: Any, code_element: Dict[str, Any]) -> Optional[str]:
+    """为给定的代码元素生成符合Google风格的文档字符串。
+
+    使用AI客户端为Python代码元素（函数/方法/类）生成格式化的文档字符串。处理LLM返回结果，
+    清理多余的格式标记并返回纯净的文档字符串内容。
+
+    Args:
+        client (Any): 用于与AI API交互的客户端对象
+        code_element (Dict[str, Any]): 包含代码元素信息的字典，必须包含:
+            - type: 元素类型（如'function'、'class'等）
+            - name: 元素名称
+            - code: 元素源代码
+            - class_name (可选): 如果元素是方法，所属类名
+
+    Returns:
+        Optional[str]: 生成的文档字符串（已清理格式），若生成失败则返回None
+
+    Note:
+        - 生成的文档字符串会自动移除多余的markdown代码块标记和三引号
+        - 会打印生成过程的日志信息到控制台
+"""

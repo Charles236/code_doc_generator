@@ -1,0 +1,27 @@
+File: D:\code_doc_generator\src\doc_generator.py
+Type: function
+Name: generate_explanation_for_element
+------------------------------
+
+"""
+def generate_explanation_for_element(client: Any, code_element: Dict[str, Any]) -> Optional[str]:
+    """Generates a plain text explanation for a given code element using AI assistance.
+
+    This function takes a code element (function, class, method etc.) and constructs a prompt
+    to request an AI-generated explanation of its purpose and behavior. The explanation focuses
+    on the element's functionality, inputs/outputs, and main operations.
+
+    Args:
+        client: An AI client instance capable of processing natural language prompts.
+        code_element: A dictionary containing the code element metadata with keys:
+            - type: The type of code element (e.g. 'function', 'class', 'method')
+            - name: The name of the code element
+            - code: The actual source code of the element
+            - class_name: Optional name of the containing class (for methods)
+
+    Returns:
+        A string containing the generated explanation, or None if the request failed.
+
+    Note:
+        The function prints status messages during generation and handles API call failures.
+"""

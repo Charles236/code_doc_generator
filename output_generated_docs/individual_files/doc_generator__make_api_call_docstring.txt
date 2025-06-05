@@ -1,0 +1,36 @@
+File: D:\code_doc_generator\src\doc_generator.py
+Type: function
+Name: _make_api_call
+------------------------------
+
+"""
+def _make_api_call(client: Any, messages: List[Dict[str, str]], max_tokens: int) -> Optional[str]:
+    """调用DeepSeek API并返回生成的文本内容。
+
+    这是一个辅助函数，用于封装DeepSeek API的调用逻辑。它会处理基本的错误情况，
+    并在出现异常时返回None。
+
+    Args:
+        client: DeepSeek API客户端实例，用于发起请求。
+        messages: 包含对话消息的字典列表，每个字典应包含'role'和'content'键。
+        max_tokens: 生成响应允许的最大token数量。
+
+    Returns:
+        成功时返回API生成的文本内容(已去除首尾空格)，失败时返回None。
+
+    Note:
+        当前仅捕获并打印异常，未来可扩展更具体的错误处理逻辑(如限流、认证错误等)。
+    """
+    try:
+        response = client.chat.completions.create(
+            model=DEEPSEEK_MODEL_NAME,
+            messages=messages,
+            max_tokens=max_tokens,
+            temperature=TEMPERATURE
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"    [!] API调用错误: {e}")
+        # 可添加更具体的错误处理（例如处理限流、认证错误等）
+        return None
+"""

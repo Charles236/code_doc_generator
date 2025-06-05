@@ -176,18 +176,46 @@ if __name__ == "__main__":
                         print(f"  [!] 保存文档字符串到 '{docstring_filepath}' 时出错: {e}")
             print(f"\n✅ [TXT] 单独文件保存完成。")
         
-        # 3. 保存 README 概览到 .md 文件
-        if readme_overview:
+        # 3. 保存 README 概览到 .md 文件，并追加详细函数/方法说明
+        if readme_overview: #
             readme_filename = "README_overview.md"
-            readme_filepath = os.path.join(output_base_dir, readme_filename) # 直接保存在 output_base_dir
+            readme_filepath = os.path.join(output_base_dir, readme_filename) #
             try:
+                # 首先，以写入模式（'w'）保存由LLM生成的概览
                 with open(readme_filepath, 'w', encoding='utf-8') as f:
+                    f.write(f"# {project_name} - 项目概览\n\n")
                     f.write(readme_overview)
                 print(f"\n✅ [MD] README 概览已成功保存到: {readme_filepath}")
+
+                # 接着，以追加模式（'a'）打开同一个文件，添加详细的函数/方法说明
+                if documented_elements:
+                    print(f"\n正在追加详细函数/方法说明到: {readme_filepath}")
+                    with open(readme_filepath, 'a', encoding='utf-8') as f:
+                        f.write("\n\n---\n") # 分隔线
+                        f.write("\n## 详细函数与方法说明\n")
+
+                        for element in documented_elements:
+                            # 我们只追加函数和方法的解释
+                            if element['type'] in ['function', 'method', 'async function', 'async method'] and element.get('explanation'):
+                                f.write("\n### ")
+                                if element.get('class_name'):
+                                    f.write(f"`{element['class_name']}.{element['name']}`")
+                                else:
+                                    f.write(f"`{element['name']}`")
+                                
+                                f.write(f" ({element['type']})\n") # 添加类型
+                                f.write(f"**文件路径:** `{element['file_path']}` (行 {element.get('start_line', 'N/A')}-{element.get('end_line', 'N/A')})\n\n")
+                                f.write("```text\n") # 使用文本块来保持解释的原始格式
+                                f.write(element['explanation'])
+                                f.write("\n```\n") # 结束文本块
+                        print(f"✅ [MD] 详细函数/方法说明已追加。")
+                
             except Exception as e:
-                print(f"\n❌ [MD] 保存 README 概览时出错: {e}")
-        
-        # --- ^^^^ 文件保存逻辑结束 ^^^^ ---
+                print(f"\n❌ [MD] 保存或追加 README 内容时出错: {e}")
+        else:
+            print("未能生成项目概览，因此不创建 README_overview.md 文件。") # 在 readme_overview 为 None 时的处理
+
+        # --- 文件保存逻辑结束 ---
 
     elif not deepseek_client: #
         print("\n跳过步骤 3，因为 DeepSeek 客户端未成功初始化。") #

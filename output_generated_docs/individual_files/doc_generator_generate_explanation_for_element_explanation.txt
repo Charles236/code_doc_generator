@@ -1,0 +1,36 @@
+File: D:\code_doc_generator\src\doc_generator.py
+Type: function
+Name: generate_explanation_for_element
+------------------------------
+
+这个名为`generate_explanation_for_element`的函数是一个用于为Python代码元素生成纯文本解释的工具。以下是其主要功能说明：
+
+目的：
+- 该函数的主要目的是通过调用AI接口（如OpenAI API）为给定的Python代码元素（如函数、类、方法等）生成自然语言解释。
+
+输入：
+- `client`：一个API客户端对象，用于实际调用AI服务
+- `code_element`：包含代码元素信息的字典，需要包含以下键：
+  - `type`：代码元素类型（如"function"、"class"等）
+  - `name`：代码元素名称
+  - `code`：代码内容
+  - `class_name`（可选）：如果元素是类方法，则包含所属类名
+
+输出：
+- 返回一个字符串（`Optional[str]`），即生成的代码解释文本
+- 如果生成失败则返回None
+
+主要行为：
+1. 从输入字典中提取代码元素的基本信息（类型、名称、代码等）
+2. 构造一个系统提示（说明AI的角色）和用户提示（包含代码元素的具体信息和请求）
+3. 如果代码元素属于某个类，会在提示中特别说明
+4. 调用`_make_api_call`函数（未显示）实际发送请求到AI服务
+5. 打印生成过程的日志信息
+6. 返回AI生成的解释文本或None（如果失败）
+
+示例使用场景：
+当分析一个Python项目时，可以用这个函数自动为项目中的每个函数/类生成文档说明，帮助开发者或新团队成员快速理解代码功能。
+
+注意：
+- 该函数依赖于外部的`_make_api_call`函数来实际处理API调用
+- 使用了`MAX_TOKENS_EXPLANATION`常量（未显示定义）来控制生成文本的最大长度

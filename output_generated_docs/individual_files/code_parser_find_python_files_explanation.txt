@@ -1,0 +1,31 @@
+File: D:\code_doc_generator\src\code_parser.py
+Type: function
+Name: find_python_files
+------------------------------
+
+这个名为`find_python_files`的Python函数用于在指定代码库目录中查找所有的Python文件（.py文件）。以下是它的详细说明：
+
+目的：
+- 扫描给定目录及其子目录，找出所有Python源文件
+- 自动跳过虚拟环境目录（venv/.venv）
+- 返回找到的所有Python文件的绝对路径列表
+
+输入：
+- `codebase_path`：字符串类型，表示要扫描的代码库根目录路径
+
+输出：
+- 返回一个字符串列表，包含所有找到的Python文件的绝对路径
+
+主要行为：
+1. 初始化一个空列表`python_files`来存储结果
+2. 使用`os.walk`遍历代码库目录及其所有子目录
+3. 跳过任何包含"venv"或".venv"的目录（Python虚拟环境）
+4. 检查每个文件是否以".py"结尾
+5. 对于每个Python文件，将其绝对路径添加到结果列表中并打印找到的信息
+6. 如果没有找到任何Python文件，会打印提示信息
+7. 最后返回找到的所有Python文件路径列表
+
+示例输出：
+- 函数会实时打印扫描进度，如："正在扫描 '/path/to/code' 中的 Python 文件..."
+- 对于每个找到的文件会打印："找到: /path/to/code/example.py"
+- 如果没有找到文件会打印："未找到任何 Python (.py) 文件。"
