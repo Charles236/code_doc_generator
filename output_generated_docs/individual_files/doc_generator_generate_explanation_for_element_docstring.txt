@@ -1,0 +1,29 @@
+File: D:\code_doc_generator\src\doc_generator.py
+Type: function
+Name: generate_explanation_for_element
+------------------------------
+
+"""
+def generate_explanation_for_element(client: Any, code_element: Dict[str, Any]) -> Optional[str]:
+    """为给定的代码元素生成纯文本解释。
+
+    使用AI客户端为指定的代码元素生成自然语言解释。解释内容包括元素的目的、输入输出
+    以及主要行为。
+
+    Args:
+        client: 用于与AI服务通信的客户端对象
+        code_element: 包含代码元素信息的字典，必须包含以下键：
+            - type: 代码元素类型（如'function'、'class'等）
+            - name: 代码元素名称
+            - code: 代码内容
+            可选键：
+            - class_name: 如果元素属于某个类，指定类名
+
+    Returns:
+        生成的纯文本解释字符串，如果生成失败则返回None
+
+    Note:
+        该函数会打印生成过程的进度信息到控制台。
+    """
+    ...  # 函数实现保持不变
+"""

@@ -1,0 +1,38 @@
+File: D:\code_doc_generator\src\script_generator.py
+Type: function
+Name: generate_full_tutorial_script
+------------------------------
+
+这个函数`generate_full_tutorial_script`的主要功能是根据教程大纲生成完整的教程脚本内容。以下是详细说明：
+
+目的：
+- 将教程大纲中的每个部分转换为实际的脚本内容
+- 适用于为特定项目创建面向初学者的教程
+
+输入参数：
+1. `client`：一个客户端对象（类型未具体指定，可能是API客户端）
+2. `tutorial_outline`：教程大纲，是字典列表，每个字典包含章节信息
+3. `project_name`：项目名称字符串
+4. `target_audience`：目标受众（默认为"初学者"）
+
+输出：
+- 返回字典列表，每个字典包含：
+  - `title`：章节标题
+  - `type`：章节类型
+  - `script`：生成的脚本内容（生成失败时返回占位文本）
+
+主要行为：
+1. 遍历教程大纲中的每个章节
+2. 对两种章节类型做不同处理：
+   - 如果是"core_features_parent"类型（核心功能父章节）：
+     * 处理其所有子章节
+     * 为每个子章节调用`generate_script_for_section`生成脚本
+   - 其他类型章节：
+     * 直接调用`generate_script_for_section`生成脚本
+3. 每次API调用后添加延迟（`API_CALL_DELAY_SECONDS`）
+4. 收集所有生成的脚本内容并返回
+
+其他特点：
+- 包含进度打印信息（开始/结束提示和处理进度）
+- 对生成失败的情况有容错处理（使用占位文本）
+- 保持API调用的合理间隔防止过载

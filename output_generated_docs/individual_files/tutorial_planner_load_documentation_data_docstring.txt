@@ -1,0 +1,23 @@
+File: D:\code_doc_generator\src\tutorial_planner.py
+Type: function
+Name: load_documentation_data
+------------------------------
+
+"""
+def load_documentation_data(output_base_dir: str, project_name: str) -> List[Dict[str, Any]]:
+    """从项目输出目录加载文档化元素的JSON数据文件。
+
+    从指定的基础目录中加载以项目名称命名的JSON文件，该文件应包含文档化元素的数据。
+    如果文件不存在或加载失败，将返回空列表并打印错误信息。
+
+    Args:
+        output_base_dir: 存放生成的JSON文件的基础目录路径（相对于当前工作目录）
+        project_name: 项目名称，用于构造JSON文件名（格式为"{project_name}_documentation_data.json"）
+
+    Returns:
+        包含所有文档化元素的字典列表，每个元素表示为键值对字典。如果加载失败则返回空列表。
+
+    Note:
+        文件路径构造为 os.path.join(output_base_dir, f"{project_name}_documentation_data.json")
+        加载失败时会打印错误信息，但不会抛出异常
+"""

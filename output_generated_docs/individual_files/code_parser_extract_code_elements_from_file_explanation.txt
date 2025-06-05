@@ -1,0 +1,40 @@
+File: D:\code_doc_generator\src\code_parser.py
+Type: function
+Name: extract_code_elements_from_file
+------------------------------
+
+这个Python函数`extract_code_elements_from_file`的主要功能是从给定的Python文件中提取代码元素（函数、类和方法）的结构化信息。以下是详细说明：
+
+目的：
+- 解析Python源代码文件，提取其中的函数、类和方法等代码元素
+- 收集每个元素的元数据（如名称、类型、位置等）和实际源代码
+- 主要用于代码分析、文档生成或静态检查等场景
+
+输入：
+- `file_path`：字符串类型，表示要解析的Python文件的绝对路径
+
+输出：
+- 返回一个字典列表，每个字典代表一个代码元素，包含以下字段：
+  - `file_path`：源文件路径
+  - `name`：元素名称
+  - `type`：元素类型（"function"/"async function"/"class"/"method"/"async method"）
+  - `code`：元素的完整源代码
+  - `start_line`/`end_line`：元素在文件中的起止行号
+  - `class_name`：对于方法，记录所属类名；其他为None
+
+主要行为：
+1. 读取并解析指定Python文件
+2. 使用Python的`ast`模块构建抽象语法树(AST)
+3. 遍历AST节点，识别三种主要元素：
+   - 顶层函数（包括普通函数和异步函数）
+   - 类定义
+   - 类中的方法（包括普通方法和异步方法）
+4. 使用`ast.get_source_segment`获取每个元素的完整源代码
+5. 收集所有元素的元数据并返回
+6. 处理过程中会捕获并报告文件读取错误和语法错误
+
+注意事项：
+- 需要Python 3.8+（因为使用了`ast.get_source_segment`）
+- 会跳过有语法错误的文件
+- 对每个提取操作都有错误处理，不会因单个元素提取失败而中断整个流程
+- 输出中包含详细的代码位置信息，便于后续分析

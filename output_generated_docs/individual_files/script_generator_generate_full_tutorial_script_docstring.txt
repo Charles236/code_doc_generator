@@ -1,0 +1,23 @@
+File: D:\code_doc_generator\src\script_generator.py
+Type: function
+Name: generate_full_tutorial_script
+------------------------------
+
+"""
+def generate_full_tutorial_script(client: Any, tutorial_outline: List[Dict[str, Any]], project_name: str, target_audience: str = "初学者") -> List[Dict[str, Any]]:
+    """为给定的教程大纲生成完整的教程脚本内容。
+
+    遍历教程大纲的每个部分，调用脚本生成函数，并组装成完整的教程脚本列表。支持处理核心功能组（父部分）及其子部分。
+
+    Args:
+        client: 用于生成脚本的客户端对象，类型由具体实现决定。
+        tutorial_outline: 教程大纲列表，每个元素为包含标题、类型和子部分（可选）的字典。
+        project_name: 项目名称，用于生成过程中的日志和脚本内容。
+        target_audience: 目标受众级别，默认为"初学者"。
+
+    Returns:
+        生成的完整教程脚本列表，每个元素包含标题、类型和脚本内容。若生成失败，脚本内容会包含占位文本。
+
+    Note:
+        在API调用之间会添加延迟（API_CALL_DELAY_SECONDS）以避免速率限制。
+"""

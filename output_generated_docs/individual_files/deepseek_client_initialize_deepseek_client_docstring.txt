@@ -1,0 +1,39 @@
+File: D:\code_doc_generator\src\deepseek_client.py
+Type: function
+Name: initialize_deepseek_client
+------------------------------
+
+"""
+def initialize_deepseek_client():
+    """初始化并返回配置好的DeepSeek API客户端实例。
+
+    该函数会检查环境变量中的DEEPSEEK_API_KEY，若缺失则抛出异常。成功时返回
+    经认证的OpenAI客户端实例（适配DeepSeek服务端点），失败时返回None并打印错误。
+
+    Returns:
+        openai.OpenAI | None: 配置完成的客户端对象，包含以下预置参数：
+            - api_key: 从环境变量DEEPSEEK_API_KEY加载
+            - base_url: 使用模块级常量DEEPSEEK_BASE_URL
+        初始化失败时返回None
+
+    Raises:
+        ValueError: 当环境变量中未检测到DEEPSEEK_API_KEY时触发
+
+    Notes:
+        - 包含连接性测试注释（需取消注释示例代码）
+        - 错误处理会捕获所有异常类型并转换为None返回
+        - 初始化成功时会打印确认信息
+    """
+    if not DEEPSEEK_API_KEY:
+        raise ValueError("未在环境变量中找到DEEPSEEK_API_KEY。"
+                         "请在.env文件或系统环境中设置。")
+
+    try:
+        client = openai.OpenAI(
+            api_key=DEEPSEEK_API_KEY,
+            base_url=DEEPSEEK_BASE_URL
+        )
+        print("DeepSeek客户端初始化成功。")
+        return client
+    except Exception as e:
+"""

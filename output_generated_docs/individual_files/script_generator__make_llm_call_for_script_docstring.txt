@@ -1,0 +1,36 @@
+File: D:\code_doc_generator\src\script_generator.py
+Type: function
+Name: _make_llm_call_for_script
+------------------------------
+
+"""
+def _make_llm_call_for_script(client: Any, messages: List[Dict[str, str]], max_tokens: int) -> Optional[str]:
+    """Makes an API call to an LLM for script generation purposes.
+    
+    This helper function is specifically designed for generating scripts by calling a language model API.
+    Similar to _make_api_call in doc_generator but may use different models or parameters.
+
+    Args:
+        client: The LLM client instance used to make the API call.
+        messages: List of message dictionaries containing 'role' and 'content' keys.
+        max_tokens: Maximum number of tokens to generate in the response.
+
+    Returns:
+        The generated script content as a string if successful, or None if an error occurs.
+
+    Note:
+        Uses predefined constants DEEPSEEK_MODEL_SCRIPT_GENERATION for the model and
+        TEMPERATURE_SCRIPT for temperature parameter.
+    """
+    try:
+        response = client.chat.completions.create(
+            model=DEEPSEEK_MODEL_SCRIPT_GENERATION,
+            messages=messages,
+            max_tokens=max_tokens,
+            temperature=TEMPERATURE_SCRIPT
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"    [!] LLM API Call Error (for script): {e}")
+        return None
+"""

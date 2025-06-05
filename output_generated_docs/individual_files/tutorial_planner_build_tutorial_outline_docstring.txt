@@ -1,0 +1,29 @@
+File: D:\code_doc_generator\src\tutorial_planner.py
+Type: function
+Name: build_tutorial_outline
+------------------------------
+
+"""
+def build_tutorial_outline(documented_elements: List[Dict[str, Any]], 
+                         project_name: str, 
+                         readme_overview: Optional[str] = None) -> List[Dict[str, Any]]:
+    """根据项目文档元素构建结构化的教程大纲。
+    
+    该函数接收项目文档元素列表和项目信息，生成包含引言、环境设置、核心功能详解和总结等
+    标准章节的教程大纲结构。大纲采用分层结构组织，特别对代码元素进行排序和分组处理。
+
+    Args:
+        documented_elements: 从项目代码中提取的文档化元素列表，每个元素应包含类型、名称、
+            代码片段和解释说明等元数据
+        project_name: 用于个性化教程标题和内容提示的项目名称
+        readme_overview: 可选的README概览内容，用于生成教程引言部分
+
+    Returns:
+        结构化的教程大纲列表，每个条目代表一个章节，包含章节类型、标题和内容来源等信息。
+        核心功能章节会包含排序后的子章节列表。
+
+    Notes:
+        - 会自动过滤掉没有解释说明的代码元素
+        - 元素按文件路径、类名和起始行号排序
+        - 空输入将返回空列表并打印警告
+"""

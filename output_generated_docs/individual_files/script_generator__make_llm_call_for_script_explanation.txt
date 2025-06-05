@@ -1,0 +1,40 @@
+File: D:\code_doc_generator\src\script_generator.py
+Type: function
+Name: _make_llm_call_for_script
+------------------------------
+
+这个名为 `_make_llm_call_for_script` 的 Python 函数是一个辅助函数，专门用于调用大语言模型（LLM）API 来生成脚本内容。以下是它的详细说明：
+
+### 目的
+- 封装对大语言模型 API 的调用逻辑，用于脚本生成任务
+- 处理 API 调用过程中的异常情况
+- 返回模型生成的脚本内容或错误时返回 None
+
+### 输入参数
+1. `client`: 一个 API 客户端对象，用于实际发起 LLM 调用
+2. `messages`: 包含对话消息的字典列表，格式为 `List[Dict[str, str]]`，通常包含系统提示和用户输入
+3. `max_tokens`: 整数，限制模型生成的最大 token 数量
+
+### 输出
+- 成功时：返回模型生成的脚本内容字符串（经过去除首尾空格的清理）
+- 失败时：返回 `None` 并打印错误信息
+
+### 主要行为
+1. 使用指定的模型参数调用 LLM API：
+   - 使用预设的 `DEEPSEEK_MODEL_SCRIPT_GENERATION` 模型
+   - 传入对话消息 (`messages`)
+   - 设置最大 token 数 (`max_tokens`)
+   - 使用预设的温度参数 `TEMPERATURE_SCRIPT`（控制生成随机性）
+
+2. 处理响应：
+   - 从 API 响应中提取第一个选择的内容
+   - 去除内容首尾空格后返回
+
+3. 错误处理：
+   - 捕获所有异常并打印错误信息
+   - 返回 `None` 表示调用失败
+
+### 特点
+- 专为脚本生成任务设计（区别于文档生成）
+- 使用预设的模型和温度参数
+- 简单的错误处理机制

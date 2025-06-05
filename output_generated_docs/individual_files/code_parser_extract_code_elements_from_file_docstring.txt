@@ -1,0 +1,35 @@
+File: D:\code_doc_generator\src\code_parser.py
+Type: function
+Name: extract_code_elements_from_file
+------------------------------
+
+"""
+def extract_code_elements_from_file(file_path: str) -> list[dict]:
+    """Extracts code elements (functions, classes, methods) from a Python source file.
+    
+    Parses the given Python file using AST and extracts structural code elements including:
+    - Top-level functions (both sync and async)
+    - Class definitions (including their methods)
+    - Methods (both sync and async) with their containing class context
+
+    The extraction preserves source code segments with accurate line number information.
+
+    Args:
+        file_path: Absolute path to the Python source file to analyze. Must be UTF-8 encoded.
+
+    Returns:
+        List of dictionaries where each dictionary represents a code element with these keys:
+        - file_path: Source file path (same as input)
+        - name: Element name (function/class/method name)
+        - type: Element type ('function', 'async function', 'class', 'method', 'async method')
+        - code: Full source code of the element
+        - start_line: Starting line number in source file
+        - end_line: Ending line number in source file
+        - class_name: Containing class name for methods (None for top-level elements)
+
+    Note:
+        Requires Python 3.8+ for ast.get_source_segment() functionality.
+        Silently handles syntax errors and file access issues, returning empty list on failure.
+    """
+    # [原有函数实现...]
+"""

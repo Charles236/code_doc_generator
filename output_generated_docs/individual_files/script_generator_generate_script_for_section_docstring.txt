@@ -1,0 +1,29 @@
+File: D:\code_doc_generator\src\script_generator.py
+Type: function
+Name: generate_script_for_section
+------------------------------
+
+"""
+为教程大纲中的单个部分生成视频脚本。
+
+根据给定的部分类型和内容数据，生成适合视频教程的旁白脚本。脚本会针对不同部分类型（如介绍、设置、核心功能等）进行定制化生成，
+并包含视觉提示标记。
+
+Args:
+    client (Any): 用于与LLM服务交互的客户端对象
+    section_data (Dict[str, Any]): 包含部分信息的字典，应包含:
+        - section_type: 部分类型（如"introduction"、"setup"等）
+        - title: 部分标题
+        - content_source: 部分内容源文本（可选）
+        - 其他类型特定字段（如代码片段、解释等）
+    project_name (str): 项目名称，用于脚本个性化
+    target_audience (str): 目标受众级别，默认为"初学者"
+
+Returns:
+    Optional[str]: 生成的脚本内容字符串，如果生成失败则返回None
+
+Note:
+    - 支持的部分类型包括："introduction"、"setup"、"core_feature_detail"和"conclusion"
+    - 对于未明确处理的类型，会尝试通用生成
+    - 生成的脚本包含视觉提示标记（如[显示项目Logo]）
+"""

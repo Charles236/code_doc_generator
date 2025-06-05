@@ -1,0 +1,48 @@
+File: D:\code_doc_generator\src\deepseek_client.py
+Type: function
+Name: initialize_deepseek_client
+------------------------------
+
+这个名为`initialize_deepseek_client`的Python函数用于初始化并返回一个DeepSeek API客户端。以下是详细解释：
+
+**目的**：
+- 创建一个配置好的DeepSeek API客户端实例，用于后续与DeepSeek API的交互
+
+**输入**：
+- 无显式参数输入
+- 但依赖两个全局/环境变量：
+  - `DEEPSEEK_API_KEY`：API密钥（必需）
+  - `DEEPSEEK_BASE_URL`：API基础URL
+
+**输出**：
+- 成功时：返回一个`openai.OpenAI`客户端实例
+- 失败时：返回`None`
+
+**主要行为**：
+1. **验证检查**：
+   - 首先检查`DEEPSEEK_API_KEY`是否存在，不存在则抛出`ValueError`异常
+
+2. **客户端初始化**：
+   - 使用提供的API密钥和基础URL创建OpenAI客户端实例
+
+3. **成功处理**：
+   - 打印成功消息
+   - 返回客户端实例（注释中提到了可选的测试调用，但当前代码中未实际执行）
+
+4. **错误处理**：
+   - 捕获可能出现的异常并打印错误信息
+   - 返回`None`表示初始化失败
+
+**典型使用场景**：
+```python
+client = initialize_deepseek_client()
+if client:
+    # 使用client进行API调用
+else:
+    # 处理初始化失败的情况
+```
+
+**注意事项**：
+- 函数假设相关配置已通过环境变量或其它方式设置
+- 包含注释掉的示例代码，展示了如何进行简单的连接测试（如列出可用模型）
+- 错误处理较为基础，实际应用中可能需要更细致的处理

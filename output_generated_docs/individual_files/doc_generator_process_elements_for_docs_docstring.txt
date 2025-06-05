@@ -1,0 +1,28 @@
+File: D:\code_doc_generator\src\doc_generator.py
+Type: function
+Name: process_elements_for_docs
+------------------------------
+
+"""
+def process_elements_for_docs(client: Any, code_elements: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Processes code elements by generating explanations and docstrings for each.
+    
+    Iterates through a list of code elements and enhances each by adding 'explanation' and 
+    'docstring' fields. Only processes functions, methods, and classes; skips other element types.
+    Respects API rate limits with built-in delays between requests.
+
+    Args:
+        client: Client object used to interact with the documentation generation API.
+        code_elements: List of dictionaries representing code elements to process. Each 
+            dictionary should contain 'type', 'name', and 'file_path' keys at minimum.
+
+    Returns:
+        List[Dict[str, Any]]: The modified input list with added 'explanation' and 'docstring' 
+            keys for each processed element. Unprocessed elements will have these keys set to None.
+
+    Note:
+        Currently processes these element types: function, method, async function, 
+        async method, and class. All other types are skipped.
+    """
+    ...
+"""

@@ -1,0 +1,36 @@
+File: D:\code_doc_generator\src\code_parser.py
+Type: function
+Name: find_python_files
+------------------------------
+
+"""
+def find_python_files(codebase_path: str) -> list[str]:
+    """Traverses a directory tree to find all Python (.py) files.
+
+    Scans the specified codebase directory recursively, excluding any virtual environment
+    directories (venv/.venv), and collects all Python files found.
+
+    Args:
+        codebase_path: The root directory path to search for Python files.
+
+    Returns:
+        A list of absolute file paths for all found Python files. Returns empty list if none found.
+
+    Note:
+        Prints progress messages during scanning and reports if no files are found.
+    """
+    python_files = []
+    print(f"\n正在扫描 '{codebase_path}' 中的 Python 文件...")
+    for root, _, files in os.walk(codebase_path):
+        # Skip venv directories
+        if "venv" in root.split(os.sep) or ".venv" in root.split(os.sep):
+            continue
+        for file in files:
+            if file.endswith(".py"):
+                file_path = os.path.join(root, file)
+                python_files.append(file_path)
+                print(f"  找到: {file_path}")
+    if not python_files:
+        print("未找到任何 Python (.py) 文件。")
+    return python_files
+"""

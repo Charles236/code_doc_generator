@@ -1,0 +1,37 @@
+File: D:\code_doc_generator\src\code_parser.py
+Type: function
+Name: get_codebase_path_from_user
+------------------------------
+
+"""
+def get_codebase_path_from_user() -> str | None:
+    """Prompts the user to input and validates a codebase directory path.
+
+    Continuously prompts the user to enter a filesystem path until a valid directory
+    is provided or the user chooses to exit. The path is converted to an absolute
+    path and checked for existence and directory validity.
+
+    Returns:
+        str | None: The absolute path to the validated codebase directory if successful,
+        or None if the user cancels or provides an invalid path.
+    """
+    while True:
+        codebase_path = input("请输入您的代码库的本地目录路径 (例如 D:\\projects\\my_python_project): ").strip()
+        if not codebase_path:
+            print("路径不能为空，请重新输入。")
+            continue
+
+        # Convert to absolute path and normalize
+        absolute_path = os.path.abspath(codebase_path)
+
+        if not os.path.exists(absolute_path):
+            print(f"错误：路径 '{absolute_path}' 不存在。请检查路径是否正确。")
+        elif not os.path.isdir(absolute_path):
+            print(f"错误：路径 '{absolute_path}' 不是一个有效的目录。")
+        else:
+            print(f"代码库路径确认为: {absolute_path}")
+            return absolute_path
+        
+        try_again = input("要尝试其他路径吗？(y/n): ").lower()
+        if try_again != 'y
+"""

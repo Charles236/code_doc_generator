@@ -14,6 +14,9 @@ from .doc_generator import process_elements_for_docs, generate_project_overview 
 #步骤四： 从 tutorial_planner.py导入
 from .tutorial_planner import load_documentation_data, build_tutorial_outline 
 
+#步骤五   从 cript_generator.py导入
+from .script_generator import generate_full_tutorial_script
+
 def sanitize_filename(name_part: str) -> str:
     """
     清理字符串，使其适合作为文件名的一部分。
