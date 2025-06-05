@@ -269,7 +269,46 @@ if __name__ == "__main__":
 
     print("\n--- 步骤 4 完成 ---") #
 
-    print("\n--- 所有基础步骤处理完毕 ---") #
+    # --- 步骤 5: 生成教程脚本 ---
+    print("\n--- 步骤 5: 生成教程脚本 ---")
+    
+    final_tutorial_script_parts = []
+    # tutorial_outline_structure 是从步骤4获取的
+    # deepseek_client 是从步骤1获取的
+    # project_name 是从步骤2获取的
+    
+    if 'tutorial_outline_structure' in locals() and tutorial_outline_structure and deepseek_client:
+        # target_audience 可以设为可配置参数
+        final_tutorial_script_parts = generate_full_tutorial_script(deepseek_client, tutorial_outline_structure, project_name, target_audience="编程初学者")
 
+        if final_tutorial_script_parts:
+            print("\n--- 完整教程脚本已生成 ---")
+            # 打印一些脚本片段示例
+            for i, part in enumerate(final_tutorial_script_parts[:2]): # 只打印前2个部分的脚本示例
+                print(f"\n部分 {i+1}: {part['title']} ({part['type']})")
+                print(f"脚本片段: {part['script'][:200]}...") # 打印前200字符
+
+            # 将完整脚本保存到文件
+            script_output_filename = f"{project_name}_full_tutorial_script.txt"
+            # output_base_dir 已在前面定义
+            script_output_path = os.path.join(output_base_dir, script_output_filename)
+            try:
+                with open(script_output_path, 'w', encoding='utf-8') as f:
+                    for part_idx, part_data in enumerate(final_tutorial_script_parts):
+                        f.write(f"--- 🎬 部分 {part_idx + 1}: {part_data['title']} ({part_data['type']}) ---\n\n")
+                        f.write(f"{part_data['script']}\n\n")
+                        f.write("=" * 70 + "\n\n")
+                print(f"\n✅ 完整教程脚本已保存到: {script_output_path}")
+            except Exception as e:
+                print(f"\n❌ 保存完整教程脚本时出错: {e}")
+        else:
+            print("未能生成任何教程脚本片段。")
+    else:
+        if not ('tutorial_outline_structure' in locals() and tutorial_outline_structure):
+            print("教程大纲未准备好，无法生成脚本。")
+        if not deepseek_client:
+            print("DeepSeek 客户端未初始化，无法生成脚本。")
+
+    print("\n--- 步骤 5 完成 ---") #
 
     print("\n--- 所有基础步骤处理完毕 ---") #

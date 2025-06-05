@@ -76,7 +76,11 @@ def build_tutorial_outline(documented_elements: List[Dict[str, Any]],
 
     elements_to_explain = sorted(
         [el for el in documented_elements if el.get('explanation') and el['type'] in ['function', 'method', 'class', 'async function', 'async method']],
-        key=lambda x: (x['file_path'], x.get('class_name', ''), x['start_line'])
+        key=lambda x: (
+            x.get('file_path', ''),        # 使用 .get 提供默认值以增加稳健性
+            x.get('class_name') or '',     # 如果 class_name 是 None，则使用空字符串 '' 进行排序
+            x.get('start_line', 0)         # 使用 .get 提供默认值
+        )
     )
 
     for element in elements_to_explain:
