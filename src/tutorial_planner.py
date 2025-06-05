@@ -118,7 +118,7 @@ if __name__ == '__main__':
     # 假设我们从项目根目录运行 python -m src.tutorial_planner
     current_working_dir = os.getcwd() # 通常是项目根目录
     test_output_base_dir = os.path.join(current_working_dir, "output_generated_docs")
-    test_project_name = "TestProject" # 你需要替换为实际的项目名，或者让用户输入
+    test_project_name = "src" # 你需要替换为实际的项目名，或者让用户输入
 
     # 尝试加载之前步骤生成的 README_overview.md (可选)
     test_readme_overview_content = None

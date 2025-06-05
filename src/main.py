@@ -11,6 +11,8 @@ from .code_parser import get_codebase_path_from_user, find_python_files, extract
 # 步骤三: 从 doc_generator.py 导入
 from .doc_generator import process_elements_for_docs, generate_project_overview #
 
+#步骤四： 从 tutorial_planner.py导入
+from .tutorial_planner import load_documentation_data, build_tutorial_outline 
 
 def sanitize_filename(name_part: str) -> str:
     """
@@ -223,5 +225,51 @@ if __name__ == "__main__":
         print("\n跳过步骤 3，因为步骤 2 未提取到任何代码元素。") #
     
     print("\n--- 步骤 3 完成 ---") #
+
+    # --- 步骤 4: 构建教程大纲 ---
+    print("\n--- 步骤 4: 构建教程大纲 ---")
+    
+    # project_name, output_base_dir, readme_overview 变量应已在前面步骤中定义或加载
+    # documented_elements_from_file 将从JSON加载，优先于内存中的 documented_elements (如果有的话)
+    
+    # 1. 从JSON文件加载文档数据
+    # output_base_dir 和 project_name 已在前面定义
+    loaded_data_for_tutorial = load_documentation_data(output_base_dir, project_name) 
+
+    if not loaded_data_for_tutorial:
+        print("未能从JSON文件加载文档数据，无法进行教程大纲构建。")
+        # 你可以选择在这里退出，或者尝试使用内存中的 'documented_elements' (如果这是一个连续运行的脚本)
+        # if documented_elements:
+        #     print("警告: 将尝试使用内存中的 'documented_elements' 进行教程大纲构建。")
+        #     loaded_data_for_tutorial = documented_elements
+        # else:
+        #     print("错误: 内存中也无 'documented_elements'。退出。")
+        #     exit() # 如果严格要求从文件加载，则退出
+    
+    if loaded_data_for_tutorial:
+        # readme_overview 变量是在步骤3的末尾从 generate_project_overview 获取的
+        # 如果 main.py 是一次性运行所有步骤，readme_overview 应该还存在内存中。
+        # 如果是分步运行，你可能也需要将 readme_overview 保存到文件并在此处加载。
+        # 为简单起见，假设 readme_overview 仍然可用或可以从文件中加载。
+        # 此处直接使用内存中的 readme_overview (如果有)。
+        
+        tutorial_outline_structure = build_tutorial_outline(loaded_data_for_tutorial, project_name, readme_overview)
+
+        if tutorial_outline_structure:
+            print("\n--- 教程大纲已生成 (通过 tutorial_planner.py) ---")
+            for section in tutorial_outline_structure:
+                print(f"  - {section['title']} (类型: {section['section_type']})")
+                if section['section_type'] == 'core_features_parent' and "sub_sections" in section:
+                    print(f"    包含 {len(section['sub_sections'])} 个核心功能点。")
+            # tutorial_outline_structure 将作为步骤五的输入
+        else:
+            print("未能构建教程大纲。")
+    else:
+        print("由于数据加载失败，跳过教程大纲构建。")
+
+    print("\n--- 步骤 4 完成 ---") #
+
+    print("\n--- 所有基础步骤处理完毕 ---") #
+
 
     print("\n--- 所有基础步骤处理完毕 ---") #
